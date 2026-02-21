@@ -1,0 +1,36 @@
+{
+  "agent_name": "Attendance Report Agent",
+  "agent_id": "69994f68938bc0103dbe0b9d",
+  "description": "Analyzes attendance data from VeloDB and generates real-time subject-wise and student-wise reports, trends, and summaries for five subjects (MEFA, DBMS, OS, JAVA, PYTHON).",
+  "agent_type": "json",
+  "accessor": "result",
+  "auto_generated": true,
+  "response_schema": {
+    "result": {
+      "subject": "string",
+      "total_students": "number",
+      "present_count": "number",
+      "absent_count": "number",
+      "attendance_percentage": "number",
+      "trend_summary": "string",
+      "absentee_list": [
+        "string"
+      ],
+      "report_summary": "string"
+    }
+  },
+  "example_response": {
+    "result": {
+      "subject": "The subject name (MEFA, DBMS, OS, JAVA, PYTHON, or ALL)",
+      "total_students": 0,
+      "present_count": 0,
+      "absent_count": 0,
+      "attendance_percentage": 0,
+      "trend_summary": "Trend analysis: improving, declining, or stable with explanation",
+      "absentee_list": [
+        "sample string"
+      ],
+      "report_summary": "Comprehensive summary of the attendance report"
+    }
+  }
+}

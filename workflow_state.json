@@ -1,0 +1,88 @@
+{
+  "app_name": "AttendEase - Smart Student Attendance Tracker",
+  "agents": [
+    {
+      "agent_id": "69994f68938bc0103dbe0b9d",
+      "name": "Attendance Report Agent",
+      "description": "Analyzes attendance data from VeloDB and generates real-time subject-wise and student-wise reports, trends, and summaries for five subjects (MEFA, DBMS, OS, JAVA, PYTHON).",
+      "agent_role": "Attendance Analytics Expert",
+      "model": "gpt-4.1",
+      "provider": "openai",
+      "temperature": 0.3,
+      "top_p": 1,
+      "trigger": "Generate Report button on Reports Screen",
+      "has_tools": false,
+      "has_knowledge_base": false,
+      "has_image_output": false,
+      "has_voice": false,
+      "has_file_output": false,
+      "response_schema_file": "response_schemas/attendance_report_agent_response.json"
+    },
+    {
+      "agent_id": "69994f68db37e68c87a52c81",
+      "name": "Student Profile Agent",
+      "description": "Queries VeloDB to retrieve and present individual student attendance profiles, answers natural language questions about student attendance across all subjects.",
+      "agent_role": "Student Profile Assistant",
+      "model": "gpt-4.1",
+      "provider": "openai",
+      "temperature": 0.3,
+      "top_p": 1,
+      "trigger": "Chat input on Student Profiles Screen",
+      "has_tools": false,
+      "has_knowledge_base": false,
+      "has_image_output": false,
+      "has_voice": false,
+      "has_file_output": false,
+      "response_schema_file": "response_schemas/student_profile_agent_response.json"
+    },
+    {
+      "agent_id": "69994f6802de7ae3dd4c1b77",
+      "name": "Attendance Alert Agent",
+      "description": "Checks attendance records in VeloDB against configurable thresholds and generates alert summaries for students with low attendance per subject.",
+      "agent_role": "Attendance Monitoring Agent",
+      "model": "gpt-4.1",
+      "provider": "openai",
+      "temperature": 0.2,
+      "top_p": 1,
+      "trigger": "Scheduled daily at 6 PM IST; also manual Check Alerts on Notifications Screen",
+      "has_tools": false,
+      "has_knowledge_base": false,
+      "has_image_output": false,
+      "has_voice": false,
+      "has_file_output": false,
+      "response_schema_file": "response_schemas/attendance_alert_agent_response.json"
+    }
+  ],
+  "schedules": [
+    {
+      "schedule_id": "69994f72399dfadeac37e0e8",
+      "agent_id": "69994f6802de7ae3dd4c1b77",
+      "agent_name": "Attendance Alert Agent",
+      "cron_expression": "0 18 * * *",
+      "timezone": "Asia/Kolkata",
+      "description": "Daily at 6:00 PM IST - checks attendance against 75% threshold",
+      "is_active": true,
+      "next_run_time": "2026-02-21T18:00:00+05:30",
+      "message": "Check all student attendance records against the 75% threshold. Identify students below the threshold in each subject (MEFA, DBMS, OS, JAVA, PYTHON). Generate alert summaries with student names, roll numbers, attendance percentages, and severity levels.",
+      "max_retries": 3,
+      "retry_delay": 300
+    }
+  ],
+  "workflow": {
+    "nodes": [
+      {"id": "input_node", "type": "Input", "label": "User Query / Trigger", "nodeCategory": "input"},
+      {"id": "attendance_report_agent", "type": "Agent", "label": "Attendance Report Agent", "nodeCategory": "agent"},
+      {"id": "student_profile_agent", "type": "Agent", "label": "Student Profile Agent", "nodeCategory": "agent"},
+      {"id": "attendance_alert_agent", "type": "Agent", "label": "Attendance Alert Agent", "nodeCategory": "agent"},
+      {"id": "output_node", "type": "Output", "label": "Response Output", "nodeCategory": "end"}
+    ],
+    "edges": [
+      {"source": "input_node", "target": "attendance_report_agent"},
+      {"source": "input_node", "target": "student_profile_agent"},
+      {"source": "input_node", "target": "attendance_alert_agent"},
+      {"source": "attendance_report_agent", "target": "output_node"},
+      {"source": "student_profile_agent", "target": "output_node"},
+      {"source": "attendance_alert_agent", "target": "output_node"}
+    ]
+  }
+}

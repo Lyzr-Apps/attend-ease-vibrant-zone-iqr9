@@ -1,0 +1,44 @@
+{
+  "agent_name": "Attendance Alert Agent",
+  "agent_id": "69994f6802de7ae3dd4c1b77",
+  "description": "Checks attendance records in VeloDB against configurable thresholds and generates alert summaries for students with low attendance per subject.",
+  "agent_type": "json",
+  "accessor": "result",
+  "auto_generated": true,
+  "response_schema": {
+    "result": {
+      "alert_date": "string",
+      "threshold_percentage": "number",
+      "alerts": [
+        {
+          "student_name": "string",
+          "roll_number": "string",
+          "subject": "string",
+          "attendance_percentage": "number",
+          "classes_missed": "number",
+          "severity": "string"
+        }
+      ],
+      "total_alerts": "number",
+      "summary": "string"
+    }
+  },
+  "example_response": {
+    "result": {
+      "alert_date": "Date of the alert check in YYYY-MM-DD format",
+      "threshold_percentage": 0,
+      "alerts": [
+        {
+          "student_name": "Name of the student",
+          "roll_number": "Roll number of the student",
+          "subject": "Subject with low attendance",
+          "attendance_percentage": 0,
+          "classes_missed": 0,
+          "severity": "Warning, Critical, or Severe"
+        }
+      ],
+      "total_alerts": 0,
+      "summary": "Comprehensive summary of all alerts with recommended actions"
+    }
+  }
+}

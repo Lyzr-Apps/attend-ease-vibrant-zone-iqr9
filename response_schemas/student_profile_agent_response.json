@@ -1,0 +1,42 @@
+{
+  "agent_name": "Student Profile Agent",
+  "agent_id": "69994f68db37e68c87a52c81",
+  "description": "Queries VeloDB to retrieve and present individual student attendance profiles, answers natural language questions about student attendance across all subjects.",
+  "agent_type": "json",
+  "accessor": "result",
+  "auto_generated": true,
+  "response_schema": {
+    "result": {
+      "student_name": "string",
+      "roll_number": "string",
+      "overall_attendance_percentage": "number",
+      "subject_wise_attendance": [
+        {
+          "subject": "string",
+          "classes_attended": "number",
+          "total_classes": "number",
+          "percentage": "number"
+        }
+      ],
+      "status": "string",
+      "remarks": "string"
+    }
+  },
+  "example_response": {
+    "result": {
+      "student_name": "Full name of the student",
+      "roll_number": "Unique roll number of the student",
+      "overall_attendance_percentage": 0,
+      "subject_wise_attendance": [
+        {
+          "subject": "Subject name",
+          "classes_attended": 0,
+          "total_classes": 0,
+          "percentage": 0
+        }
+      ],
+      "status": "Good Standing, At Risk, or Critical",
+      "remarks": "Observations and recommendations about attendance pattern"
+    }
+  }
+}
