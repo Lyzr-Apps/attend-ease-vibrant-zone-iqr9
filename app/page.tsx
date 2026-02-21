@@ -160,7 +160,7 @@ function parseAgentResponse<T>(result: Record<string, unknown> | undefined | nul
     if (typeof response === 'string') {
       try {
         respObj = JSON.parse(response)
-      } catch {
+      } catch (_e) {
         return null
       }
     } else {
@@ -171,7 +171,7 @@ function parseAgentResponse<T>(result: Record<string, unknown> | undefined | nul
     if (typeof data === 'string') {
       try {
         data = JSON.parse(data)
-      } catch {
+      } catch (_e) {
         // leave as string
       }
     }
@@ -186,7 +186,7 @@ function parseAgentResponse<T>(result: Record<string, unknown> | undefined | nul
     }
 
     return null
-  } catch {
+  } catch (_e) {
     return null
   }
 }
@@ -1025,7 +1025,7 @@ function StudentProfilesTab({ useSample, setActiveAgent }: { useSample: boolean;
           ...prev,
         ])
       }
-    } catch {
+    } catch (_e) {
       setHistory(prev => [
         { query: currentQuery, result: null, error: 'An unexpected error occurred', timestamp: new Date().toISOString() },
         ...prev,
@@ -1052,7 +1052,7 @@ function StudentProfilesTab({ useSample, setActiveAgent }: { useSample: boolean;
               value={query}
               onChange={e => setQuery(e.target.value)}
               onKeyDown={e => { if (e.key === 'Enter' && !loading) handleQuery() }}
-              placeholder='e.g. "Show attendance for Roll No 101" or "Show me Rahul\'s attendance"'
+              placeholder={'e.g. "Show attendance for Roll No 101" or "Show me Rahul\'s attendance"'}
               className="w-full pl-10 pr-4 py-2.5 rounded-xl border border-gray-200 bg-white/80 focus:ring-2 focus:ring-emerald-400 focus:border-emerald-400 outline-none transition-all text-sm"
               disabled={loading}
             />
@@ -1225,7 +1225,7 @@ function AlertsTab({ useSample, setActiveAgent }: { useSample: boolean; setActiv
       } else {
         setScheduleError(res.error ?? 'No schedules found')
       }
-    } catch {
+    } catch (_e) {
       setScheduleError('Failed to load schedule info')
     } finally {
       setScheduleLoading(false)
@@ -1239,7 +1239,7 @@ function AlertsTab({ useSample, setActiveAgent }: { useSample: boolean; setActiv
       if (res.success) {
         setLogs(Array.isArray(res.executions) ? res.executions : [])
       }
-    } catch {
+    } catch (_e) {
       // silent
     } finally {
       setLogsLoading(false)
@@ -1261,7 +1261,7 @@ function AlertsTab({ useSample, setActiveAgent }: { useSample: boolean; setActiv
         await resumeSchedule(scheduleInfo.id)
       }
       await loadSchedules()
-    } catch {
+    } catch (_e) {
       setScheduleError('Failed to toggle schedule')
     } finally {
       setToggling(false)
@@ -1289,7 +1289,7 @@ function AlertsTab({ useSample, setActiveAgent }: { useSample: boolean; setActiv
       } else {
         setAlertError(result.error ?? 'Failed to check alerts.')
       }
-    } catch {
+    } catch (_e) {
       setAlertError('An unexpected error occurred.')
     } finally {
       setAlertLoading(false)
